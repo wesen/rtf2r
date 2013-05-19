@@ -132,25 +132,8 @@ void dump_rsrc_file(const char *type, NSData *data, NSString *rPath)
 	const unsigned char *buf = [data bytes];
 	FILE * fd;
 	char * fmode;
-	
-	if(strcmp(type, "TEXT") == 0){
-	   if((fd = fopen([rPath UTF8String], "w+")) < 0)
-		{
-			// error opening file for writing
-			fprintf(stderr, "Error opening file: %s", [rPath UTF8String]);
-			return;
-		}
-	}
-	else if(strcmp(type, "styl") == 0){
-	   if((fd = fopen([rPath UTF8String], "a")) < 0){
-			// error opening file for appending
-			fprintf(stderr, "Error opening file: %s", [rPath UTF8String]);
-			return;
-		}
-	}
-	else{
-	// unrecognized type? 
-	}
+
+        fd = stdout;
 	
 	size = [data length];
 	
@@ -237,12 +220,6 @@ void dump_rsrc_file(const char *type, NSData *data, NSString *rPath)
     fprintf(fd, "};\n");
     fprintf(fd, "\n");
 	
-	if(fclose(fd) < 0)
-	{
-		// error closing file
-		fprintf(stderr, "Error closing file: %s", [rPath UTF8String]);
-		return;
-	}
 }
 
 
